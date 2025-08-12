@@ -7,10 +7,11 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Repository\" />
+    <Folder Include="ExternalServices\" />
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\ReadOrbit.APPLICATION\ReadOrbit.APPLICATION.csproj" />
     <ProjectReference Include="..\ReadOrbit.DOMAIN\ReadOrbit.DOMAIN.csproj" />
   </ItemGroup>
 
