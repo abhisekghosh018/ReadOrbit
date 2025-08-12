@@ -11,7 +11,7 @@ namespace ReadOrbit.APPLICATION.Interfaces
     {
         Task<Author> CreateAuthorAsync(Author author);
         Task<Author> UpdateAuthorAsync(Author author);
-        Task<Author> GetAllAuthorAsync(Author author);
+        Task<List<Author>> GetAllAuthorAsync();
         Task<Author> GetAuthorByIdAsync(string authorId);
     }
 }

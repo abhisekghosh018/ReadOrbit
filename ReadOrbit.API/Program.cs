@@ -1,12 +1,19 @@
 using Microsoft.EntityFrameworkCore;
+using ReadOrbit.APPLICATION.Interfaces;
+using ReadOrbit.APPLICATION.Services;
 using ReadOrbit.INFRASTRUCTURE.DB;
+using ReadOrbit.INFRASTRUCTURE.Repository;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
-options.UseNpgsql(builder.Configuration.GetConnectionString("PostgresConnection")));
+    options.UseNpgsql(builder.Configuration.GetConnectionString("PostgresConnection")));
+
+
+builder.Services.AddScoped<IAuthorRepository, AuthorRepository>();
+builder.Services.AddScoped<AuthorService>();
 
 builder.Services.AddControllers();
 

@@ -1,12 +1,13 @@
-﻿using ReadOrbit.DOMAIN.DomainEntities.Group;
+﻿using ReadOrbit.DOMAIN.DomainEntities;
 
-namespace ReadOrbit.DOMAIN.DomainEntities.Reader
+namespace ReadOrbit.DOMAIN.DomainEntities
 {
     public class ReaderGroup
     {
+        public string Id { get; set; }
         public string ReaderId { get; set; }
-        public Reader Reader { get; set; }
+        public BookReader Reader { get; set; }
         public string GroupId { get; set; }
-        public Groups Group { get; set; }
+        public Group Group { get; set; }
     }
 }
