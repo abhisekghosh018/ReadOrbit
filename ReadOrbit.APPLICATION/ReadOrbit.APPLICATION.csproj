@@ -6,4 +6,12 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Folder Include="IRepository\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\ReadOrbit.INFRASTRUCTURE\ReadOrbit.INFRASTRUCTURE.csproj" />
+  </ItemGroup>
+
 </Project>

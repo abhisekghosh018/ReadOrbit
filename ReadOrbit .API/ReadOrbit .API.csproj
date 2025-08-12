@@ -7,4 +7,8 @@
     <RootNamespace>ReadOrbit_.API</RootNamespace>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\ReadOrbit.APPLICATION\ReadOrbit.APPLICATION.csproj" />
+  </ItemGroup>
+
 </Project>
