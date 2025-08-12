@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ReadOrbit.APPLICATION.Interfaces
 {
-    public interface IBookRepository
+    public interface IBookReaderRepository
     {
 
     }
