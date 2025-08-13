@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ReadOrbit.APPLICATION.DTOs
+namespace ReadOrbit.APPLICATION.DTOs.AthorDTOs
 {
-    public class GetAuthorDtos
+    public class UpdateAuthorDtos
     {
         public string Id { get; set; }
         public string Name { get; set; }

@@ -1,5 +1,4 @@
-﻿using ReadOrbit.DOMAIN.DomainEntities;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -7,12 +6,12 @@ using System.Threading.Tasks;
 
 namespace ReadOrbit.APPLICATION.DTOs.BookDTOs
 {
-    public class CreateBookDTOs
+    public class GetBookDTO
     {
         public string Id { get; set; } = Guid.NewGuid().ToString();
         public string Title { get; set; }
         public int PublishedYear { get; set; }
-        public string AuthorId { get; set; }       
-        public int GenreId { get; set; }       
+        public string Author { get; set; }
+        public string Genre { get; set; }
     }
 }
