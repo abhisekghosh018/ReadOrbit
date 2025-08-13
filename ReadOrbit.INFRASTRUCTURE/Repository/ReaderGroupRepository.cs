@@ -13,35 +13,35 @@ namespace ReadOrbit.APPLICATION.Interfaces
             _context = context;
         }
 
-        public async Task<int> CreateReaderGroupAsync(ReaderGroup ReaderGroup)
+        public async Task<int> CreateReaderGroupAsync(Review ReaderGroup)
         {
             _context.Add(ReaderGroup);
             return await _context.SaveChangesAsync();
         }
 
-        public async Task<IEnumerable<ReaderGroup>> GetAllReaderGroupsAsync()
+        public async Task<IEnumerable<Review>> GetAllReaderGroupsAsync()
         {
           var readerGroups = await _context.ReaderGroups
                 .AsNoTracking()
-                .Include(rg => rg.Reader)
-                .Include(rg => rg.Group)
+                .Include(rg => rg.Readers)
+                .Include(rg => rg.Books)
                 .ToListAsync();
 
             return readerGroups;
         }
 
-        public async Task<ReaderGroup?> GetReaderGroupByIdAsync(string ReaderGroupId)
+        public async Task<Review?> GetReaderGroupByIdAsync(string ReaderGroupId)
         {
             var readerGroups = await _context.ReaderGroups
                 .AsNoTracking()
-                .Include(rg => rg.Reader)
-                .Include(rg => rg.Group)
-                .FirstOrDefaultAsync(gr=> gr.Id == ReaderGroupId);
+                .Include(rg => rg.Readers)
+                .Include(rg => rg.Books)
+                .FirstOrDefaultAsync(gr=> gr.ReviewId == ReaderGroupId);
 
             return readerGroups;
         }
 
-        public async Task<int> UpdateReaderGroupAsync(ReaderGroup ReaderGroup)
+        public async Task<int> UpdateReaderGroupAsync(Review ReaderGroup)
         {
             _context.Update(ReaderGroup);
             return await _context.SaveChangesAsync();

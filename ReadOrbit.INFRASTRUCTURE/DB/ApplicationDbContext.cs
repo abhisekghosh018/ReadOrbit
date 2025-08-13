@@ -13,7 +13,7 @@ namespace ReadOrbit.INFRASTRUCTURE.DB
         public DbSet<BookReader> BookReaders { get; set; }
         public DbSet<Group> Groups { get; set; }
         public DbSet<Genre> Genres { get; set; }
-        public DbSet<ReaderGroup> ReaderGroups { get; set; }
+        public DbSet<Review> ReaderGroups { get; set; }
         public DbSet<ReaderProfile> ReaderProfiles { get; set; }
         public DbSet<Review> Reviews { get; set; }
                

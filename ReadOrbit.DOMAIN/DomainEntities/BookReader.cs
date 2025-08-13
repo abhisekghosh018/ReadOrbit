@@ -15,5 +15,9 @@ namespace ReadOrbit.DOMAIN.DomainEntities
         public DateTime JoinDate { get; set; }
         public string ProfileId { get; set; }
         public ReaderProfile Profile { get; set; }
+        public ICollection<Book> Books { get; set; } = new List<Book>();
+        public ICollection<Review> Reviews { get; set; } = new List<Review>();
+
+
     }
 }

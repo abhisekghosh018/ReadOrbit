@@ -9,9 +9,9 @@ namespace ReadOrbit.APPLICATION.Interfaces
 {
     public interface IReaderGroupRepository
     {
-        Task<int> CreateReaderGroupAsync(ReaderGroup ReaderGroup);
-        Task<int> UpdateReaderGroupAsync(ReaderGroup ReaderGroup);
-        Task<IEnumerable<ReaderGroup>> GetAllReaderGroupsAsync();
-        Task<ReaderGroup?> GetReaderGroupByIdAsync(string ReaderGroupId);
+        Task<int> CreateReaderGroupAsync(Review ReaderGroup);
+        Task<int> UpdateReaderGroupAsync(Review ReaderGroup);
+        Task<IEnumerable<Review>> GetAllReaderGroupsAsync();
+        Task<Review?> GetReaderGroupByIdAsync(string ReaderGroupId);
     }
 }

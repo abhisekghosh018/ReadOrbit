@@ -6,5 +6,6 @@
         public string Name { get; set; }
         public string? Country { get; set; }
         public DateOnly? DOB { get; set; }
+        public ICollection<Book> Books { get; set; } = new List<Book>();
     }
 }
