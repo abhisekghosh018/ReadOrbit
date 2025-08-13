@@ -44,7 +44,7 @@ namespace ReadOrbit.API.Controllers
         }
 
         [HttpPost("createAuthor")]
-        public async Task<IActionResult> CreateAuthor(CreateAuthorDtos createDto)
+        public async Task<IActionResult> CreateAuthor([FromBody] CreateAuthorDtos createDto)
         {
             var author = await _authorService.CreateAuthorAsync(createDto);
 
@@ -57,7 +57,7 @@ namespace ReadOrbit.API.Controllers
         }
 
         [HttpPost("updateAuthor")]
-        public async Task<IActionResult> updateAuthor(UpdateAuthorDtos updateDto)
+        public async Task<IActionResult> updateAuthor([FromBody] UpdateAuthorDtos updateDto)
         {
             var author = await _authorService.UpdateAuthorAsync(updateDto);
 
