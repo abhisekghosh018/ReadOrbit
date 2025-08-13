@@ -15,7 +15,7 @@ namespace ReadOrbit.API.Controllers
         {
             _bookService = bookService;
         }
-        [HttpGet]
+        [HttpGet("getBooks")]
         public async Task<IActionResult> GetBooks()
         {
             var books = await _bookService.GetAllBooksAsync();
@@ -25,7 +25,7 @@ namespace ReadOrbit.API.Controllers
             }
             return Ok(books);
         }
-        [HttpGet]
+        [HttpGet("getBook{id}")]
         public async Task<IActionResult> GetBook(string id)
         {
             var books = await _bookService.GetBookByIdAsync(id);
@@ -35,8 +35,8 @@ namespace ReadOrbit.API.Controllers
             }
             return Ok(books);
         }
-        [HttpPost]
-        public async Task<IActionResult> CreateBook(CreateBookDTO createBookDTO)
+        [HttpPost("createBook")]
+        public async Task<IActionResult> CreateBook([FromBody] CreateBookDTO createBookDTO)
         {
             var books = await _bookService.AddBookAsync(createBookDTO);
             if (books == 0)
@@ -45,8 +45,8 @@ namespace ReadOrbit.API.Controllers
             }
             return Ok(books);
         }
-        [HttpPut]
-        public async Task<IActionResult> UpdateBook(UpdateBookDTO pdateBookDTO)
+        [HttpPut("updateBook")]
+        public async Task<IActionResult> UpdateBook([FromBody] UpdateBookDTO pdateBookDTO)
         {
             var book = await _bookService.UpdateBookAsync(pdateBookDTO);
             if (book == 0)
