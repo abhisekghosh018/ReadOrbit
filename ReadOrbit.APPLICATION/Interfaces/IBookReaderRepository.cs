@@ -9,9 +9,9 @@ namespace ReadOrbit.APPLICATION.Interfaces
 {
     public interface IBookReaderRepository
     {
-        Task<int> CreateAuthorAsync(Author author);
-        Task<int> UpdateAuthorAsync(Author author);
-        Task<IEnumerable<Author>> GetAllAuthorAsync();
-        Task<Author?> GetAuthorByIdAsync(string authorId);
+        Task<int> CreateBookReaderAsync(BookReader bookReader);
+        Task<int> UpdateBookReaderAsync(BookReader bookReader);
+        Task<IEnumerable<BookReader>> GetAllBookReadersAsync();
+        Task<BookReader?> GetBookReaderByIdAsync(string bookReaderId);
     }
 }
