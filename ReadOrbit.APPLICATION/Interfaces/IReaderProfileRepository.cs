@@ -11,7 +11,7 @@ namespace ReadOrbit.APPLICATION.Interfaces
     {
         Task<int> CreateReaderProfileAsync(ReaderProfile readerProfile);
         Task<int> UpdateReaderProfileAsync(ReaderProfile author);
-        Task<List<ReaderProfile>> GetAllReaderProfileAsync();
+        Task<IEnumerable<ReaderProfile>> GetAllReaderProfileAsync();
         Task<ReaderProfile?> GetReaderProfileByIdAsync(string readerProfileId);
     }
 }
