@@ -9,9 +9,9 @@ namespace ReadOrbit.APPLICATION.Interfaces
 {
     public interface IGenreRepository
     {
-        Task<Book?> GetGenreByIdAsync(string bookId);
-        Task<IEnumerable<Book>> GetGenresAsync();
-        Task<int> AddNewGenreAsync(Book book);
-        Task<int> UpdateGenreAsync(Book book);
+        Task<Genre?> GetGenreByIdAsync(int genreId);
+        Task<IEnumerable<Genre>> GetGenresAsync();
+        Task<int> AddNewGenreAsync(Genre genre);
+        Task<int> UpdateGenreAsync(Genre genre);
     }
 }

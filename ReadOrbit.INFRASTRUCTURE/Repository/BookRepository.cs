@@ -17,17 +17,14 @@ namespace ReadOrbit.INFRASTRUCTURE.Repository
         public async Task<int> AddNewBookAsync(Book book)
         {
             _context.Add(book);
-            var result = await _context.SaveChangesAsync();
-            return result;
+            return await _context.SaveChangesAsync();         
         }
 
         public async Task<int> UpdateBookAsync(Book book)
         {
             _context.Books.Update(book);
-            var result = await _context.SaveChangesAsync();
-            return result;
+            return await _context.SaveChangesAsync();
         }
-
         public async Task<Book?> GetBookByIdAsync(string bookId)
         {
             var book = await _context.Books.AsNoTracking()   
@@ -37,7 +34,6 @@ namespace ReadOrbit.INFRASTRUCTURE.Repository
 
             return book;
         }
-
         public async Task<IEnumerable<Book>> GetBooksAsync()
         {
            var books = await _context.Books.AsNoTracking()
