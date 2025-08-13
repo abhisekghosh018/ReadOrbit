@@ -21,7 +21,7 @@ namespace ReadOrbit.INFRASTRUCTURE.Repository
             return result;
         }
 
-        public async Task<List<Author>> GetAllAuthorAsync()
+        public async Task<IEnumerable<Author>> GetAllAuthorAsync()
         {
             var result = await _context.Authors.AsNoTracking().ToListAsync();
             return result;
