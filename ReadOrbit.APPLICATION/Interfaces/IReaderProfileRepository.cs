@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ReadOrbit.DOMAIN.DomainEntities;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,6 +9,9 @@ namespace ReadOrbit.APPLICATION.Interfaces
 {
     public interface IReaderProfileRepository
     {
-
+        Task<int> CreateReaderProfileAsync(ReaderProfile readerProfile);
+        Task<int> UpdateReaderProfileAsync(ReaderProfile author);
+        Task<List<ReaderProfile>> GetAllReaderProfileAsync();
+        Task<ReaderProfile?> GetReaderProfileByIdAsync(string readerProfileId);
     }
 }
