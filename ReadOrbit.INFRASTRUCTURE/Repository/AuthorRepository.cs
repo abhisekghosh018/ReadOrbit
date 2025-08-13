@@ -13,25 +13,30 @@ namespace ReadOrbit.INFRASTRUCTURE.Repository
             _context = context;
         }
 
-        public Task<Author> CreateAuthorAsync(Author author)
+        public async Task<int> CreateAuthorAsync(Author author)
         {
-            throw new NotImplementedException();
+            _context.Add(author);
+            var result = await _context.SaveChangesAsync();
+
+            return result;
         }
 
         public async Task<List<Author>> GetAllAuthorAsync()
         {
-           var result = await _context.Authors.AsNoTracking().ToListAsync();
-           return result;
+            var result = await _context.Authors.AsNoTracking().ToListAsync();
+            return result;
         }
 
-        public Task<Author> GetAuthorByIdAsync(string authorId)
+        public async Task<Author?> GetAuthorByIdAsync(string authorId)
         {
-            throw new NotImplementedException();
+            return await _context.Authors.AsNoTracking().FirstOrDefaultAsync(a => a.Id == authorId);
         }
 
-        public Task<Author> UpdateAuthorAsync(Author author)
+        public async Task<int> UpdateAuthorAsync(Author author)
         {
-            throw new NotImplementedException();
+            _context.Update(author);
+            var result = await _context.SaveChangesAsync();
+            return result;
         }
     }
 }

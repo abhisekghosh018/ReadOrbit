@@ -29,5 +29,43 @@ namespace ReadOrbit.API.Controllers
 
             return Ok(listAuthor);
         }
+
+        [HttpGet("getAuthor/{id}")]
+        public async Task<IActionResult> GetAuthor(string id)
+        {
+            var author = await _authorService.GetAuthorAsync(id);
+
+            if (author == null)
+            {
+                return NoContent();
+            }
+
+            return Ok(author);
+        }
+
+        [HttpPost("createAuthor")]
+        public async Task<IActionResult> CreateAuthor(CreateAuthorDtos createDto)
+        {
+            var author = await _authorService.CreateAuthorAsync(createDto);
+
+            if (author == 0)
+            {
+                return NoContent();
+            }
+
+            return Ok(author);
+        }
+
+        [HttpPost("updateAuthor")]
+        public async Task<IActionResult> updateAuthor(UpdateAuthorDtos updateDto)
+        {
+            var author = await _authorService.UpdateAuthorAsync(updateDto);
+
+            if (author == 0)
+            {
+                return NoContent();
+            }
+            return Ok(author);
+        }
     }
 }
