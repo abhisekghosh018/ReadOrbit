@@ -8,10 +8,10 @@ namespace ReadOrbit.API.Controllers
     [ApiController]
     public class GroupController : ControllerBase
     {
-        private  readonly ReaderProfileService _readerProfileService;
-        public GroupController(ReaderProfileService readerProfileService)
+        private  readonly GroupService _groupService;
+        public GroupController(GroupService groupService)
         {
-            _readerProfileService = readerProfileService;
+            _groupService = groupService;
         }         
     }
 }
