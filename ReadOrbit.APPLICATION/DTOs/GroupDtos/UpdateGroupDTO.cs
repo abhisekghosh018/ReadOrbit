@@ -4,13 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ReadOrbit.APPLICATION.DTOs
+namespace ReadOrbit.APPLICATION.DTOs.GroupDtos
 {
-    public class GetAuthorDtos
+    public class UpdateGroupDTO
     {
         public string Id { get; set; }
         public string Name { get; set; }
-        public string? Country { get; set; }
-        public DateOnly? DOB { get; set; }
+        public string? Description { get; set; }
     }
 }

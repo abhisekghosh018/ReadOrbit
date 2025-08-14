@@ -1,4 +1,4 @@
-﻿using ReadOrbit.APPLICATION.DTOs;
+﻿using ReadOrbit.APPLICATION.DTOs.AthorDTOs;
 using ReadOrbit.APPLICATION.Interfaces;
 using ReadOrbit.DOMAIN.DomainEntities;
 using System;

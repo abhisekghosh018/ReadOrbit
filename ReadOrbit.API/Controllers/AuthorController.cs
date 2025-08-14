@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using ReadOrbit.APPLICATION.DTOs;
+using ReadOrbit.APPLICATION.DTOs.AthorDTOs;
 using ReadOrbit.APPLICATION.Services;
 
 namespace ReadOrbit.API.Controllers
