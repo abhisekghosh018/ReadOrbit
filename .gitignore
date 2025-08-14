@@ -10,6 +10,7 @@ project.lock.json
 .vscode
 **/appsettings.json
 **/appsettings.*.json
+**/appsettings.Development
 
 # User-specific files
 *.suo
@@ -34,3 +35,5 @@ msbuild.wrn
 
 # Visual Studio 2015
 .vs/
+/ReadOrbit.API/appsettings.Development.json
+/.gitignore
