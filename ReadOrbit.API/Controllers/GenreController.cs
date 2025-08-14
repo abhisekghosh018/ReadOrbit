@@ -46,6 +46,12 @@ namespace ReadOrbit.API.Controllers
         [HttpPost("createGenre")]
         public async Task<IActionResult> CreateGenre([FromBody] CreateGenreDto createDto)
         {
+
+            if (createDto == null || string.IsNullOrWhiteSpace(createDto.Name))
+            {
+                return BadRequest("Genre name cannot be null or empty.");
+            }
+
             var author = await _genreService.CreateGenreAsync(createDto);
 
             if (author == 0)

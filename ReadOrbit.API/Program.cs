@@ -19,6 +19,7 @@ builder.Services.AddScoped<AuthorService>();
 builder.Services.AddScoped<GenreService>();
 builder.Services.AddScoped<BookService>();
 builder.Services.AddScoped<GroupService>();
+builder.Services.AddScoped<ReaderProfileService>();
 
 builder.Services.AddControllers();
 
