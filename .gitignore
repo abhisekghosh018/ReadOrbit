@@ -37,3 +37,4 @@ msbuild.wrn
 .vs/
 /ReadOrbit.API/appsettings.Development.json
 /.gitignore
+/ReadOrbit.API/appsettings.Development.json
