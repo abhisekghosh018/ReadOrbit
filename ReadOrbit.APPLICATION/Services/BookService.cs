@@ -71,10 +71,10 @@ namespace ReadOrbit.APPLICATION.Services
         }
         public async Task<int> UpdateBookAsync(UpdateBookDTO updateBookDTO)
         {
-            if (updateBookDTO.Id == null) return false;
+            if (updateBookDTO.Id == null) return 0;
 
             var existingBook = await _bookRepository.GetBookByIdAsync(updateBookDTO.Id);
-            if (existingBook == null) return false;
+            if (existingBook == null) return 0;
 
             if (!string.IsNullOrEmpty(updateBookDTO.Title))
                 existingBook.Title = updateBookDTO.Title;
@@ -88,8 +88,8 @@ namespace ReadOrbit.APPLICATION.Services
             if (updateBookDTO.GenreId.HasValue)
                 existingBook.GenreId = updateBookDTO.GenreId.Value;
 
-            await _bookRepository.UpdateBookAsync(existingBook);
-            return true;
+          var updatedbook=  await _bookRepository.UpdateBookAsync(existingBook);
+            return updatedbook;
         }
 
 
