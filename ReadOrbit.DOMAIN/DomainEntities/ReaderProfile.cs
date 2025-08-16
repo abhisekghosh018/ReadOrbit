@@ -11,7 +11,7 @@ namespace ReadOrbit.DOMAIN.DomainEntities
         public string Id  { get; set; }
         public string? Bio { get; set; }
         public string? FavoriteGenre { get; set; }
-        public string? AvatarUrl { get; set; }
+        public string? AvatarUrl { get; set; }    
 
     }
 }

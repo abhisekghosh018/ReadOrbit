@@ -19,7 +19,8 @@ namespace ReadOrbit.INFRASTRUCTURE.Migrations
                     Id = table.Column<string>(type: "text", nullable: false),
                     Name = table.Column<string>(type: "text", nullable: false),
                     Country = table.Column<string>(type: "text", nullable: true),
-                    DOB = table.Column<DateOnly>(type: "date", nullable: true)
+                    DOB = table.Column<DateOnly>(type: "date", nullable: true),
+                    ImageUrl = table.Column<string>(type: "text", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -32,7 +33,11 @@ namespace ReadOrbit.INFRASTRUCTURE.Migrations
                 {
                     Id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    Name = table.Column<string>(type: "text", nullable: false)
+                    Name = table.Column<string>(type: "text", nullable: false),
+                    Status = table.Column<bool>(type: "boolean", nullable: false),
+                    IsApproved = table.Column<bool>(type: "boolean", nullable: false),
+                    CreatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    UpdatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -43,13 +48,17 @@ namespace ReadOrbit.INFRASTRUCTURE.Migrations
                 name: "Groups",
                 columns: table => new
                 {
-                    id = table.Column<string>(type: "text", nullable: false),
-                    name = table.Column<string>(type: "text", nullable: false),
-                    description = table.Column<string>(type: "text", nullable: true)
+                    Id = table.Column<string>(type: "text", nullable: false),
+                    Name = table.Column<string>(type: "text", nullable: false),
+                    Description = table.Column<string>(type: "text", nullable: true),
+                    Status = table.Column<bool>(type: "boolean", nullable: false),
+                    IsApproved = table.Column<bool>(type: "boolean", nullable: false),
+                    CreatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    UpdatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Groups", x => x.id);
+                    table.PrimaryKey("PK_Groups", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -74,7 +83,12 @@ namespace ReadOrbit.INFRASTRUCTURE.Migrations
                     Title = table.Column<string>(type: "text", nullable: false),
                     PublishedYear = table.Column<int>(type: "integer", nullable: false),
                     AuthorId = table.Column<string>(type: "text", nullable: false),
-                    GenreId = table.Column<int>(type: "integer", nullable: false)
+                    GenreId = table.Column<int>(type: "integer", nullable: false),
+                    ImageUrl = table.Column<string>(type: "text", nullable: false),
+                    Status = table.Column<bool>(type: "boolean", nullable: false),
+                    IsApproved = table.Column<bool>(type: "boolean", nullable: false),
+                    CreatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    UpdatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -102,7 +116,11 @@ namespace ReadOrbit.INFRASTRUCTURE.Migrations
                     Email = table.Column<string>(type: "text", nullable: false),
                     Mobile = table.Column<string>(type: "text", nullable: true),
                     JoinDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    ProfileId = table.Column<string>(type: "text", nullable: false)
+                    ProfileId = table.Column<string>(type: "text", nullable: false),
+                    Status = table.Column<bool>(type: "boolean", nullable: false),
+                    IsApproved = table.Column<bool>(type: "boolean", nullable: false),
+                    CreatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    UpdatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -116,56 +134,64 @@ namespace ReadOrbit.INFRASTRUCTURE.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "ReaderGroups",
+                name: "BookBookReader",
                 columns: table => new
                 {
-                    Id = table.Column<string>(type: "text", nullable: false),
-                    ReaderId = table.Column<string>(type: "text", nullable: false),
-                    GroupId = table.Column<string>(type: "text", nullable: false)
+                    BookReadersId = table.Column<string>(type: "text", nullable: false),
+                    BooksId = table.Column<string>(type: "text", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_ReaderGroups", x => x.Id);
+                    table.PrimaryKey("PK_BookBookReader", x => new { x.BookReadersId, x.BooksId });
                     table.ForeignKey(
-                        name: "FK_ReaderGroups_BookReaders_ReaderId",
-                        column: x => x.ReaderId,
+                        name: "FK_BookBookReader_BookReaders_BookReadersId",
+                        column: x => x.BookReadersId,
                         principalTable: "BookReaders",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_ReaderGroups_Groups_GroupId",
-                        column: x => x.GroupId,
-                        principalTable: "Groups",
-                        principalColumn: "id",
+                        name: "FK_BookBookReader_Books_BooksId",
+                        column: x => x.BooksId,
+                        principalTable: "Books",
+                        principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
-                name: "Reviews",
+                name: "Review",
                 columns: table => new
                 {
-                    Id = table.Column<string>(type: "text", nullable: false),
+                    ReviewId = table.Column<string>(type: "text", nullable: false),
                     BookId = table.Column<string>(type: "text", nullable: false),
                     BookReaderId = table.Column<string>(type: "text", nullable: false),
-                    Rating = table.Column<string>(type: "text", nullable: false),
-                    Comment = table.Column<string>(type: "text", nullable: false)
+                    Rating = table.Column<int>(type: "integer", nullable: false),
+                    Comment = table.Column<string>(type: "text", nullable: false),
+                    Status = table.Column<bool>(type: "boolean", nullable: false),
+                    IsApproved = table.Column<bool>(type: "boolean", nullable: false),
+                    CreatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    UpdatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Reviews", x => x.Id);
+                    table.PrimaryKey("PK_Review", x => x.ReviewId);
                     table.ForeignKey(
-                        name: "FK_Reviews_BookReaders_BookReaderId",
+                        name: "FK_Review_BookReaders_BookReaderId",
                         column: x => x.BookReaderId,
                         principalTable: "BookReaders",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Reviews_Books_BookId",
+                        name: "FK_Review_Books_BookId",
                         column: x => x.BookId,
                         principalTable: "Books",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_BookBookReader_BooksId",
+                table: "BookBookReader",
+                column: "BooksId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_BookReaders_ProfileId",
@@ -183,23 +209,13 @@ namespace ReadOrbit.INFRASTRUCTURE.Migrations
                 column: "GenreId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_ReaderGroups_GroupId",
-                table: "ReaderGroups",
-                column: "GroupId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_ReaderGroups_ReaderId",
-                table: "ReaderGroups",
-                column: "ReaderId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Reviews_BookId",
-                table: "Reviews",
+                name: "IX_Review_BookId",
+                table: "Review",
                 column: "BookId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Reviews_BookReaderId",
-                table: "Reviews",
+                name: "IX_Review_BookReaderId",
+                table: "Review",
                 column: "BookReaderId");
         }
 
@@ -207,13 +223,13 @@ namespace ReadOrbit.INFRASTRUCTURE.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "ReaderGroups");
-
-            migrationBuilder.DropTable(
-                name: "Reviews");
+                name: "BookBookReader");
 
             migrationBuilder.DropTable(
                 name: "Groups");
+
+            migrationBuilder.DropTable(
+                name: "Review");
 
             migrationBuilder.DropTable(
                 name: "BookReaders");

@@ -12,8 +12,8 @@ using ReadOrbit.INFRASTRUCTURE.DB;
 namespace ReadOrbit.INFRASTRUCTURE.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20250812151918_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20250816121958_stausisApprovedSetAsFalse")]
+    partial class stausisApprovedSetAsFalse
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -25,6 +25,21 @@ namespace ReadOrbit.INFRASTRUCTURE.Migrations
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
+            modelBuilder.Entity("BookBookReader", b =>
+                {
+                    b.Property<string>("BookReadersId")
+                        .HasColumnType("text");
+
+                    b.Property<string>("BooksId")
+                        .HasColumnType("text");
+
+                    b.HasKey("BookReadersId", "BooksId");
+
+                    b.HasIndex("BooksId");
+
+                    b.ToTable("BookBookReader");
+                });
+
             modelBuilder.Entity("ReadOrbit.DOMAIN.DomainEntities.Author", b =>
                 {
                     b.Property<string>("Id")
@@ -35,6 +50,9 @@ namespace ReadOrbit.INFRASTRUCTURE.Migrations
 
                     b.Property<DateOnly?>("DOB")
                         .HasColumnType("date");
+
+                    b.Property<string>("ImageUrl")
+                        .HasColumnType("text");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -54,15 +72,30 @@ namespace ReadOrbit.INFRASTRUCTURE.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("timestamp with time zone");
+
                     b.Property<int>("GenreId")
                         .HasColumnType("integer");
+
+                    b.Property<string>("ImageUrl")
+                        .HasColumnType("text");
+
+                    b.Property<bool?>("IsApproved")
+                        .HasColumnType("boolean");
 
                     b.Property<int>("PublishedYear")
                         .HasColumnType("integer");
 
+                    b.Property<bool?>("Status")
+                        .HasColumnType("boolean");
+
                     b.Property<string>("Title")
                         .IsRequired()
                         .HasColumnType("text");
+
+                    b.Property<DateTime>("UpdatedAt")
+                        .HasColumnType("timestamp with time zone");
 
                     b.HasKey("Id");
 
@@ -78,9 +111,15 @@ namespace ReadOrbit.INFRASTRUCTURE.Migrations
                     b.Property<string>("Id")
                         .HasColumnType("text");
 
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("timestamp with time zone");
+
                     b.Property<string>("Email")
                         .IsRequired()
                         .HasColumnType("text");
+
+                    b.Property<bool?>("IsApproved")
+                        .HasColumnType("boolean");
 
                     b.Property<DateTime>("JoinDate")
                         .HasColumnType("timestamp with time zone");
@@ -91,6 +130,12 @@ namespace ReadOrbit.INFRASTRUCTURE.Migrations
                     b.Property<string>("ProfileId")
                         .IsRequired()
                         .HasColumnType("text");
+
+                    b.Property<bool?>("Status")
+                        .HasColumnType("boolean");
+
+                    b.Property<DateTime>("UpdatedAt")
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("UserName")
                         .IsRequired()
@@ -111,9 +156,21 @@ namespace ReadOrbit.INFRASTRUCTURE.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<bool?>("IsApproved")
+                        .HasColumnType("boolean");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("text");
+
+                    b.Property<bool?>("Status")
+                        .HasColumnType("boolean");
+
+                    b.Property<DateTime>("UpdatedAt")
+                        .HasColumnType("timestamp with time zone");
 
                     b.HasKey("Id");
 
@@ -122,41 +179,31 @@ namespace ReadOrbit.INFRASTRUCTURE.Migrations
 
             modelBuilder.Entity("ReadOrbit.DOMAIN.DomainEntities.Group", b =>
                 {
-                    b.Property<string>("id")
-                        .HasColumnType("text");
-
-                    b.Property<string>("description")
-                        .HasColumnType("text");
-
-                    b.Property<string>("name")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.HasKey("id");
-
-                    b.ToTable("Groups");
-                });
-
-            modelBuilder.Entity("ReadOrbit.DOMAIN.DomainEntities.ReaderGroup", b =>
-                {
                     b.Property<string>("Id")
                         .HasColumnType("text");
 
-                    b.Property<string>("GroupId")
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("text");
+
+                    b.Property<bool?>("IsApproved")
+                        .HasColumnType("boolean");
+
+                    b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<string>("ReaderId")
-                        .IsRequired()
-                        .HasColumnType("text");
+                    b.Property<bool?>("Status")
+                        .HasColumnType("boolean");
+
+                    b.Property<DateTime>("UpdatedAt")
+                        .HasColumnType("timestamp with time zone");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("GroupId");
-
-                    b.HasIndex("ReaderId");
-
-                    b.ToTable("ReaderGroups");
+                    b.ToTable("Groups");
                 });
 
             modelBuilder.Entity("ReadOrbit.DOMAIN.DomainEntities.ReaderProfile", b =>
@@ -180,7 +227,7 @@ namespace ReadOrbit.INFRASTRUCTURE.Migrations
 
             modelBuilder.Entity("ReadOrbit.DOMAIN.DomainEntities.Review", b =>
                 {
-                    b.Property<string>("Id")
+                    b.Property<string>("ReviewId")
                         .HasColumnType("text");
 
                     b.Property<string>("BookId")
@@ -195,23 +242,49 @@ namespace ReadOrbit.INFRASTRUCTURE.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<string>("Rating")
-                        .IsRequired()
-                        .HasColumnType("text");
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("timestamp with time zone");
 
-                    b.HasKey("Id");
+                    b.Property<bool?>("IsApproved")
+                        .HasColumnType("boolean");
+
+                    b.Property<int>("Rating")
+                        .HasColumnType("integer");
+
+                    b.Property<bool?>("Status")
+                        .HasColumnType("boolean");
+
+                    b.Property<DateTime>("UpdatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.HasKey("ReviewId");
 
                     b.HasIndex("BookId");
 
                     b.HasIndex("BookReaderId");
 
-                    b.ToTable("Reviews");
+                    b.ToTable("Review");
+                });
+
+            modelBuilder.Entity("BookBookReader", b =>
+                {
+                    b.HasOne("ReadOrbit.DOMAIN.DomainEntities.BookReader", null)
+                        .WithMany()
+                        .HasForeignKey("BookReadersId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("ReadOrbit.DOMAIN.DomainEntities.Book", null)
+                        .WithMany()
+                        .HasForeignKey("BooksId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("ReadOrbit.DOMAIN.DomainEntities.Book", b =>
                 {
                     b.HasOne("ReadOrbit.DOMAIN.DomainEntities.Author", "Author")
-                        .WithMany()
+                        .WithMany("Books")
                         .HasForeignKey("AuthorId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -238,42 +311,38 @@ namespace ReadOrbit.INFRASTRUCTURE.Migrations
                     b.Navigation("Profile");
                 });
 
-            modelBuilder.Entity("ReadOrbit.DOMAIN.DomainEntities.ReaderGroup", b =>
-                {
-                    b.HasOne("ReadOrbit.DOMAIN.DomainEntities.Group", "Group")
-                        .WithMany()
-                        .HasForeignKey("GroupId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("ReadOrbit.DOMAIN.DomainEntities.BookReader", "Reader")
-                        .WithMany()
-                        .HasForeignKey("ReaderId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Group");
-
-                    b.Navigation("Reader");
-                });
-
             modelBuilder.Entity("ReadOrbit.DOMAIN.DomainEntities.Review", b =>
                 {
                     b.HasOne("ReadOrbit.DOMAIN.DomainEntities.Book", "Books")
-                        .WithMany()
+                        .WithMany("Reviews")
                         .HasForeignKey("BookId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("ReadOrbit.DOMAIN.DomainEntities.BookReader", "Reader")
-                        .WithMany()
+                    b.HasOne("ReadOrbit.DOMAIN.DomainEntities.BookReader", "Readers")
+                        .WithMany("Reviews")
                         .HasForeignKey("BookReaderId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Books");
 
-                    b.Navigation("Reader");
+                    b.Navigation("Readers");
+                });
+
+            modelBuilder.Entity("ReadOrbit.DOMAIN.DomainEntities.Author", b =>
+                {
+                    b.Navigation("Books");
+                });
+
+            modelBuilder.Entity("ReadOrbit.DOMAIN.DomainEntities.Book", b =>
+                {
+                    b.Navigation("Reviews");
+                });
+
+            modelBuilder.Entity("ReadOrbit.DOMAIN.DomainEntities.BookReader", b =>
+                {
+                    b.Navigation("Reviews");
                 });
 #pragma warning restore 612, 618
         }

@@ -26,7 +26,7 @@ namespace ReadOrbit.APPLICATION.DTOs.AthorDTOs
     }
     public class BookReviewsForAuthor
     {
-        public string Rating { get; set; }
+        public int Rating { get; set; }
         public string Comment { get; set; }
     }
 }
