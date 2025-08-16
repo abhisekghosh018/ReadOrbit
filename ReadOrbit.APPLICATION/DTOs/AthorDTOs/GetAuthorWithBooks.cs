@@ -16,7 +16,10 @@ namespace ReadOrbit.APPLICATION.DTOs.AthorDTOs
     public class GetBookDTOForAuthor
     {      
         public string Title { get; set; }
-        public int PublishedYear { get; set; }      
+        public int PublishedYear { get; set; }    
+        public string? ImageUrl { get; set; }
+        public bool ? IsApproved { get; set; }
+        public bool ? Status { get; set; }
         public GetGenreDtoForAuthor Genre { get; set; }
         public List<BookReviewsForAuthor> Reviews { get; set; }
     }

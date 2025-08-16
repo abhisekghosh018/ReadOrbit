@@ -13,6 +13,10 @@ namespace ReadOrbit.APPLICATION.DTOs.BookDTOs
         public string Title { get; set; }
         public int PublishedYear { get; set; }
         public string AuthorId { get; set; }       
-        public int GenreId { get; set; }       
+        public int GenreId { get; set; }      
+        public string? ImageUrl { get; set; }
+        public bool Status { get; set; } = true;
+        public bool IsApproved { get; set; } = true;
+        public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
     }
 }

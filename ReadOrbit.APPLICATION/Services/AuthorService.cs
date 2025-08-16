@@ -76,6 +76,9 @@ namespace ReadOrbit.APPLICATION.Services
                 {
                     Title = book.Title,
                     PublishedYear = book.PublishedYear,
+                    IsApproved =book.IsApproved,
+                    Status = book.Status,
+                    ImageUrl = book.ImageUrl,
                     Genre = new GetGenreDtoForAuthor
                     {
                        Name = book.Genre.Name
