@@ -1,14 +1,6 @@
 ﻿using ReadOrbit.APPLICATION.DTOs.AthorDTOs;
-using ReadOrbit.APPLICATION.DTOs.BookDTOs;
-using ReadOrbit.APPLICATION.DTOs.GenreDTOs;
 using ReadOrbit.APPLICATION.Interfaces;
 using ReadOrbit.DOMAIN.DomainEntities;
-using System;
-using System.Collections.Generic;
-using System.Collections.Immutable;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ReadOrbit.APPLICATION.Services
 {
@@ -85,7 +77,7 @@ namespace ReadOrbit.APPLICATION.Services
                     },
                 Reviews = book.Reviews.Select(Review => new BookReviewsForAuthor
                     {
-                        Rating = Review.Rating,
+                        Rating = Review.Rating.Value,
                         Comment = Review.Comment
                     }).ToList()
                 }).ToList()

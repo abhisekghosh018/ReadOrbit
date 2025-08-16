@@ -6,7 +6,12 @@ using System.Threading.Tasks;
 
 namespace ReadOrbit.APPLICATION.DTOs.ReviewsDTOs
 {
-    internal class GetBookReviewDTO
+    public class GetBookReviewDTO
     {
+        public string ReviewId { get; set; }
+        public string BookId { get; set; }
+        public string BookReaderId { get; set; }
+        public int? Rating { get; set; }
+        public string? Comment { get; set; }
     }
 }

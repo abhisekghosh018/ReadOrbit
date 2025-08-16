@@ -6,11 +6,11 @@ namespace ReadOrbit.DOMAIN.DomainEntities
     {
         public string ReviewId { get; set; }
         public string BookId  { get; set; }
-        public Book Books { get; set; }
+        public Book Book { get; set; }
         public string BookReaderId { get; set; }
-        public BookReader Readers { get; set; }
-        public int Rating { get; set; }
-        public string Comment { get; set; }         
+        public BookReader Reader { get; set; }
+        public int? Rating { get; set; }
+        public string? Comment { get; set; }         
 
     }
 }

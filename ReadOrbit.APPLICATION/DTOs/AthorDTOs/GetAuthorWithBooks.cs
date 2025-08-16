@@ -1,7 +1,4 @@
-﻿using ReadOrbit.APPLICATION.DTOs.BookDTOs;
-using ReadOrbit.APPLICATION.DTOs.GenreDTOs;
-
-namespace ReadOrbit.APPLICATION.DTOs.AthorDTOs
+﻿namespace ReadOrbit.APPLICATION.DTOs.AthorDTOs
 {
     public class GetAuthorWithBooks
     {

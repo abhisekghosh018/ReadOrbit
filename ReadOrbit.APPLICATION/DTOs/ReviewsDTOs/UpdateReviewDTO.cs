@@ -9,7 +9,7 @@ namespace ReadOrbit.APPLICATION.DTOs.ReviewsDTOs
     public class UpdateReviewDTO
     {
         public string ReviewId { get; set; }
-        public string Rating { get; set; }
-        public string Comment { get; set; }
+        public int? Rating { get; set; }
+        public string? Comment { get; set; }
     }
 }

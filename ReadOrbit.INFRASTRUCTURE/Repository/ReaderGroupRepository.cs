@@ -23,8 +23,8 @@ namespace ReadOrbit.APPLICATION.Interfaces
         {
           var readerGroups = await _context.ReaderGroups
                 .AsNoTracking()
-                .Include(rg => rg.Readers)
-                .Include(rg => rg.Books)
+                .Include(rg => rg.Reader)
+                .Include(rg => rg.Book)
                 .ToListAsync();
 
             return readerGroups;
@@ -34,8 +34,8 @@ namespace ReadOrbit.APPLICATION.Interfaces
         {
             var readerGroups = await _context.ReaderGroups
                 .AsNoTracking()
-                .Include(rg => rg.Readers)
-                .Include(rg => rg.Books)
+                .Include(rg => rg.Reader)
+                .Include(rg => rg.Book)
                 .FirstOrDefaultAsync(gr=> gr.ReviewId == ReaderGroupId);
 
             return readerGroups;

@@ -27,8 +27,8 @@ namespace ReadOrbit.INFRASTRUCTURE.Repository
             
             var reviews= await _context.Reviews
                 .AsNoTracking()
-                .Include(b=> b.Books)
-                .Include(b=> b.Readers)
+                .Include(b=> b.Book)
+                .Include(b=> b.Reader)
                 .ToListAsync();
             return reviews;
 
@@ -38,8 +38,8 @@ namespace ReadOrbit.INFRASTRUCTURE.Repository
         {
             var review = await _context.Reviews
                 .AsNoTracking()
-                .Include(b => b.Books)
-                .Include(b => b.Readers)
+                .Include(b => b.Book)
+                .Include(b => b.Reader)
                 .FirstOrDefaultAsync(b=> b.BookId == bookId);
             return review;
         }
@@ -48,8 +48,8 @@ namespace ReadOrbit.INFRASTRUCTURE.Repository
         {
             var review = await _context.Reviews
                 .AsNoTracking()
-                .Include(b => b.Books)
-                .Include(b => b.Readers)
+                .Include(b => b.Book)
+                .Include(b => b.Reader)
                 .FirstOrDefaultAsync(b => b.BookReaderId == bookReaderId);
             return review;
         }
@@ -58,8 +58,8 @@ namespace ReadOrbit.INFRASTRUCTURE.Repository
         {
             var review = await _context.Reviews
                 .AsNoTracking()
-                .Include(b => b.Books)
-                .Include(b => b.Readers)
+                .Include(b => b.Book)
+                .Include(b => b.Reader)
                 .FirstOrDefaultAsync(b => b.ReviewId == reviewId);
             return review;
         }

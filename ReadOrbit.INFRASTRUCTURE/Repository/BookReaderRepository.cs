@@ -45,7 +45,7 @@ namespace ReadOrbit.APPLICATION.Interfaces
         {
             var bookReaders = await _context.BookReaders
                 .AsNoTracking()
-                .Include(p => p.ProfileId)
+                .Include(p => p.Profile)
                 .FirstOrDefaultAsync(b => b.Id == BookReaderId);
             return bookReaders;
         }
