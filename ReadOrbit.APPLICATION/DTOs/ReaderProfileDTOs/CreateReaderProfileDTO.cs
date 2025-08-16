@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ReadOrbit.APPLICATION.DTOs.ReaderProfileDTOs
 {
-    public class CreateUserProfileDTO
+    public class CreateReaderProfileDTO
     {
         public string Id { get; set; } = Guid.NewGuid().ToString();
         public string? Bio { get; set; }

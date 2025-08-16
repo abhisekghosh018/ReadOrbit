@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using ReadOrbit.APPLICATION.DTOs.BookDTOs;
 using ReadOrbit.APPLICATION.Services;
 
@@ -25,7 +24,7 @@ namespace ReadOrbit.API.Controllers
             }
             return Ok(books);
         }
-        [HttpGet("getBook{id}")]
+        [HttpGet("getBook/{id}")]
         public async Task<IActionResult> GetBook(string id)
         {
             var books = await _bookService.GetBookByIdAsync(id);

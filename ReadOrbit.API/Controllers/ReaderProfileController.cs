@@ -16,7 +16,7 @@ namespace ReadOrbit.API.Controllers
             _readerProfileService = readerProfileService;
         }
 
-        [HttpGet]
+        [HttpGet("GetReaderProfiles")]
         public async Task<IActionResult> GetReaderProfiles()
         {
             var readerProfiles = await _readerProfileService.GetAllReaderProfileAsync();
@@ -27,8 +27,20 @@ namespace ReadOrbit.API.Controllers
             }
             return Ok(readerProfiles);
         }
-        [HttpPost]
-        public async Task<IActionResult> CreateReaderProfile([FromBody] CreateUserProfileDTO createUserProfileDTO)
+
+        [HttpGet("getReaderProfileById/{id}")]
+        public async Task<IActionResult> GetReaderProfileById(string id)
+        {
+            var readerProfile = await _readerProfileService.GetReaderProfileByIdAsync(id);
+            if (readerProfile == null)
+            {
+                return NoContent();
+            }
+            return Ok(readerProfile);
+        }
+
+        [HttpPost("CreateReaderProfile")]
+        public async Task<IActionResult> CreateReaderProfile([FromBody] CreateReaderProfileDTO createUserProfileDTO)
         {
             if (createUserProfileDTO == null)
             {
@@ -39,6 +51,24 @@ namespace ReadOrbit.API.Controllers
             {
                 return NoContent();
             }
+            return Ok(result);
+        }
+        [HttpPut("updateReaderProfile")]
+        public async Task<IActionResult> UpdateReaderProfile([FromBody] UpdateReaderProfileDTO UpdateReaderProfileDTO)
+        {
+            if (UpdateReaderProfileDTO == null)
+            {
+                return BadRequest("Value cannot be null or empty.");
+            }
+
+            var existingProfile = await _readerProfileService.GetReaderProfileByIdAsync(UpdateReaderProfileDTO.Id);
+
+            if (existingProfile == null)
+            {
+                return NotFound("Reader profile not found.");
+            }
+
+            var result = await _readerProfileService.UpdateReaderProfileAsync(UpdateReaderProfileDTO);           
             return Ok(result);
         }
     }

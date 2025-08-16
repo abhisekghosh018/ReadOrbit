@@ -17,7 +17,7 @@ namespace ReadOrbit.APPLICATION.Services
         {
             _readerProfileRepository = readerProfileRepository;
         }
-        public async Task<int> CreateReaderProfileAsync(CreateUserProfileDTO createUserProfileDTO)
+        public async Task<int> CreateReaderProfileAsync(CreateReaderProfileDTO createUserProfileDTO)
         {
             if (createUserProfileDTO == null) return 0;
 
