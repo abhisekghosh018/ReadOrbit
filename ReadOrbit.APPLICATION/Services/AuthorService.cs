@@ -1,8 +1,11 @@
 ﻿using ReadOrbit.APPLICATION.DTOs.AthorDTOs;
+using ReadOrbit.APPLICATION.DTOs.BookDTOs;
+using ReadOrbit.APPLICATION.DTOs.GenreDTOs;
 using ReadOrbit.APPLICATION.Interfaces;
 using ReadOrbit.DOMAIN.DomainEntities;
 using System;
 using System.Collections.Generic;
+using System.Collections.Immutable;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -54,6 +57,38 @@ namespace ReadOrbit.APPLICATION.Services
 
             return authorDto;
 
+        }
+
+        public async Task<List<GetAuthorWithBooks>> GetAuthorsWithBooksAsync(string authorId)
+        {
+            var authors = await _authorRepository.GetAuthorWithBooksAsync(authorId);
+            if (!authors.Any())
+            {
+                return new List<GetAuthorWithBooks>();
+            }
+            var authorsDto = authors.Select(author => new GetAuthorWithBooks
+            {
+                Id = author.Id,
+                Name = author.Name,
+                Country = author.Country,
+                DOB = author.DOB,
+                Books = author.Books.Select(book => new GetBookDTOForAuthor
+                {
+                    Title = book.Title,
+                    PublishedYear = book.PublishedYear,
+                    Genre = new GetGenreDtoForAuthor
+                    {
+                       Name = book.Genre.Name
+                    },
+                Reviews = book.Reviews.Select(Review => new BookReviewsForAuthor
+                    {
+                        Rating = Review.Rating,
+                        Comment = Review.Comment
+                    }).ToList()
+                }).ToList()
+            }).ToList();
+
+            return authorsDto;
         }
         #endregion
 

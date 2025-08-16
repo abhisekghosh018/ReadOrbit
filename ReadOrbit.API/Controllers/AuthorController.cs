@@ -43,6 +43,17 @@ namespace ReadOrbit.API.Controllers
             return Ok(author);
         }
 
+        [HttpGet("getAuthorWithBooks/{id}")]
+        public async Task<IActionResult> GetAuthorWithBooks(string id)
+        {
+            var author = await _authorService.GetAuthorsWithBooksAsync(id);
+            if (author == null)
+            {
+                return NoContent();
+            }
+            return Ok(author);
+        }
+
         [HttpPost("createAuthor")]
         public async Task<IActionResult> CreateAuthor([FromBody] CreateAuthorDtos createDto)
         {

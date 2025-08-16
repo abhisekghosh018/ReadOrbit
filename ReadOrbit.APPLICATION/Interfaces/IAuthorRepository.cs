@@ -13,5 +13,6 @@ namespace ReadOrbit.APPLICATION.Interfaces
         Task<int> UpdateAuthorAsync(Author author);
         Task<IEnumerable<Author>> GetAllAuthorAsync();
         Task<Author?> GetAuthorByIdAsync(string authorId);
+        Task<IEnumerable<Author>> GetAuthorWithBooksAsync(string authorId);
     }
 }

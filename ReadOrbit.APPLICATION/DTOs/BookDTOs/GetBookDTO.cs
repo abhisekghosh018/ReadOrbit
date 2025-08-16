@@ -8,7 +8,7 @@ namespace ReadOrbit.APPLICATION.DTOs.BookDTOs
 {
     public class GetBookDTO
     {
-        public string Id { get; set; } = Guid.NewGuid().ToString();
+        public string Id { get; set; }
         public string Title { get; set; }
         public int PublishedYear { get; set; }
         public string Author { get; set; }

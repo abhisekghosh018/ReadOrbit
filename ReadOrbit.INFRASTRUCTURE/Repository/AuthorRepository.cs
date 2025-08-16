@@ -32,6 +32,20 @@ namespace ReadOrbit.INFRASTRUCTURE.Repository
             return await _context.Authors.AsNoTracking().FirstOrDefaultAsync(a => a.Id == authorId);
         }
 
+        public async Task<IEnumerable<Author>> GetAuthorWithBooksAsync(string authorId)
+        {
+            var result =  await  _context.Authors
+                .AsNoTracking()
+                .Where(author=> author.Id == authorId)
+                .Include(books => books.Books) 
+                 .ThenInclude(genre=> genre.Genre)
+               .Include(books => books.Books)
+                 .ThenInclude(reviews => reviews.Reviews)                
+                .ToListAsync();
+
+            return result;
+        }
+
         public async Task<int> UpdateAuthorAsync(Author author)
         {
             _context.Update(author);
