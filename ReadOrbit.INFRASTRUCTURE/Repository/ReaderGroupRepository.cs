@@ -4,11 +4,11 @@ using ReadOrbit.INFRASTRUCTURE.DB;
 
 namespace ReadOrbit.APPLICATION.Interfaces
 {
-    public class BookRepository : IReaderGroupRepository
+    public class ReaderGroupRepository : IReaderGroupRepository
     {
         private readonly ApplicationDbContext _context;
 
-        public BookRepository(ApplicationDbContext context)
+        public ReaderGroupRepository(ApplicationDbContext context)
         {
             _context = context;
         }
@@ -24,6 +24,7 @@ namespace ReadOrbit.APPLICATION.Interfaces
           var readerGroups = await _context.ReaderGroups
                 .AsNoTracking()
                 .Include(rg => rg.BookReader)
+                .Include(rg => rg.Group)
                 .Include(rg => rg.Book)
                 .ToListAsync();
 
@@ -36,6 +37,7 @@ namespace ReadOrbit.APPLICATION.Interfaces
                 .AsNoTracking()
                 .Include(rg => rg.BookReader)
                 .Include(rg => rg.Book)
+                .Include(rg => rg.Group)
                 .FirstOrDefaultAsync(gr=> gr.Id == ReaderGroupId);
 
             return readerGroups;

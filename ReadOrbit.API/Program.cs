@@ -12,12 +12,13 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("PostgresConnection")));
 
 // repositories
-builder.Services.AddScoped<IBookRepository, ReadOrbit.INFRASTRUCTURE.Repository.BookRepository>();
+builder.Services.AddScoped<IBookRepository, BookRepository>();
 builder.Services.AddScoped<IAuthorRepository, AuthorRepository>();
 builder.Services.AddScoped<IGenreRepository, GenreRepository>();
 builder.Services.AddScoped<IGroupRepository, GroupRepository>();
 builder.Services.AddScoped<IReaderProfileRepository, ReaderProfileRepository>();
 builder.Services.AddScoped<IBookReaderRepository, BookReaderRepository>();
+builder.Services.AddScoped<IReaderGroupRepository, ReaderGroupRepository>();
 
 // serices
 builder.Services.AddScoped<AuthorService>();

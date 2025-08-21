@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using ReadOrbit.INFRASTRUCTURE.DB;
@@ -11,9 +12,11 @@ using ReadOrbit.INFRASTRUCTURE.DB;
 namespace ReadOrbit.INFRASTRUCTURE.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250821133302_ModifiedReaderGroupTabelWithGroupId")]
+    partial class ModifiedReaderGroupTabelWithGroupId
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -84,9 +87,6 @@ namespace ReadOrbit.INFRASTRUCTURE.Migrations
                     b.Property<int>("PublishedYear")
                         .HasColumnType("integer");
 
-                    b.Property<string>("ReaderGroupId")
-                        .HasColumnType("text");
-
                     b.Property<bool?>("Status")
                         .HasColumnType("boolean");
 
@@ -102,8 +102,6 @@ namespace ReadOrbit.INFRASTRUCTURE.Migrations
                     b.HasIndex("AuthorId");
 
                     b.HasIndex("GenreId");
-
-                    b.HasIndex("ReaderGroupId");
 
                     b.ToTable("Books");
                 });
@@ -213,6 +211,10 @@ namespace ReadOrbit.INFRASTRUCTURE.Migrations
                     b.Property<string>("Id")
                         .HasColumnType("text");
 
+                    b.Property<string>("BookId")
+                        .IsRequired()
+                        .HasColumnType("text");
+
                     b.Property<string>("BookReaderId")
                         .IsRequired()
                         .HasColumnType("text");
@@ -222,6 +224,8 @@ namespace ReadOrbit.INFRASTRUCTURE.Migrations
                         .HasColumnType("text");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("BookId");
 
                     b.HasIndex("BookReaderId");
 
@@ -318,10 +322,6 @@ namespace ReadOrbit.INFRASTRUCTURE.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("ReadOrbit.DOMAIN.DomainEntities.ReaderGroup", null)
-                        .WithMany("Book")
-                        .HasForeignKey("ReaderGroupId");
-
                     b.Navigation("Author");
 
                     b.Navigation("Genre");
@@ -340,6 +340,12 @@ namespace ReadOrbit.INFRASTRUCTURE.Migrations
 
             modelBuilder.Entity("ReadOrbit.DOMAIN.DomainEntities.ReaderGroup", b =>
                 {
+                    b.HasOne("ReadOrbit.DOMAIN.DomainEntities.Book", "Book")
+                        .WithMany()
+                        .HasForeignKey("BookId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("ReadOrbit.DOMAIN.DomainEntities.BookReader", "BookReader")
                         .WithMany()
                         .HasForeignKey("BookReaderId")
@@ -351,6 +357,8 @@ namespace ReadOrbit.INFRASTRUCTURE.Migrations
                         .HasForeignKey("GroupId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Book");
 
                     b.Navigation("BookReader");
 
@@ -389,11 +397,6 @@ namespace ReadOrbit.INFRASTRUCTURE.Migrations
             modelBuilder.Entity("ReadOrbit.DOMAIN.DomainEntities.BookReader", b =>
                 {
                     b.Navigation("Reviews");
-                });
-
-            modelBuilder.Entity("ReadOrbit.DOMAIN.DomainEntities.ReaderGroup", b =>
-                {
-                    b.Navigation("Book");
                 });
 #pragma warning restore 612, 618
         }
