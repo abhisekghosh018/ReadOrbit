@@ -2,7 +2,7 @@
 {
     public class ReaderGroup
     {
-        public int Id { get; set; }
+        public string Id { get; set; }
         public string BookReaderId { get; set; }
         public BookReader BookReader { get; set; }
         public string BookId { get; set; }

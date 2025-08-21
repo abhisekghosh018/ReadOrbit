@@ -13,35 +13,35 @@ namespace ReadOrbit.APPLICATION.Interfaces
             _context = context;
         }
 
-        public async Task<int> CreateReaderGroupAsync(Review ReaderGroup)
+        public async Task<int> CreateReaderGroupAsync(ReaderGroup ReaderGroup)
         {
             _context.Add(ReaderGroup);
             return await _context.SaveChangesAsync();
         }
 
-        public async Task<IEnumerable<Review>> GetAllReaderGroupsAsync()
+        public async Task<IEnumerable<ReaderGroup>> GetAllReaderGroupsAsync()
         {
           var readerGroups = await _context.ReaderGroups
                 .AsNoTracking()
-                .Include(rg => rg.Reader)
+                .Include(rg => rg.BookReader)
                 .Include(rg => rg.Book)
                 .ToListAsync();
 
             return readerGroups;
         }
 
-        public async Task<Review?> GetReaderGroupByIdAsync(string ReaderGroupId)
+        public async Task<ReaderGroup?> GetReaderGroupByIdAsync(string ReaderGroupId)
         {
             var readerGroups = await _context.ReaderGroups
                 .AsNoTracking()
-                .Include(rg => rg.Reader)
+                .Include(rg => rg.BookReader)
                 .Include(rg => rg.Book)
-                .FirstOrDefaultAsync(gr=> gr.ReviewId == ReaderGroupId);
+                .FirstOrDefaultAsync(gr=> gr.Id == ReaderGroupId);
 
             return readerGroups;
         }
 
-        public async Task<int> UpdateReaderGroupAsync(Review ReaderGroup)
+        public async Task<int> UpdateReaderGroupAsync(ReaderGroup ReaderGroup)
         {
             _context.Update(ReaderGroup);
             return await _context.SaveChangesAsync();

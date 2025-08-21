@@ -54,20 +54,12 @@ namespace ReadOrbit.INFRASTRUCTURE.Repository
             return review;
         }
 
-        public async Task<Review?> GetReviewByIdAsync(string reviewId)
-        {
-            var review = await _context.Reviews
-                .AsNoTracking()
-                .Include(b => b.Book)
-                .Include(b => b.Reader)
-                .FirstOrDefaultAsync(b => b.ReviewId == reviewId);
-            return review;
-        }
-
         public async Task<int> UpdateReviewAsync(Review review)
         {
             _context.Update(review);
             return await _context.SaveChangesAsync();
         }
+
+        
     }
 }

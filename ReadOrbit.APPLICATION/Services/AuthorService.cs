@@ -75,8 +75,8 @@ namespace ReadOrbit.APPLICATION.Services
                     {
                        Name = book.Genre.Name
                     },
-                Reviews = book.Reviews.Select(Review => new BookReviewsForAuthor
-                    {
+                    Reviews = book.Reviews.Select(Review => new BookReviewsForAuthor
+                        {
                         Rating = Review.Rating.Value,
                         Comment = Review.Comment
                     }).ToList()

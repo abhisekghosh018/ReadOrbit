@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using ReadOrbit.INFRASTRUCTURE.DB;
@@ -11,9 +12,11 @@ using ReadOrbit.INFRASTRUCTURE.DB;
 namespace ReadOrbit.INFRASTRUCTURE.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250821131118_IssueFixedInReviewTable")]
+    partial class IssueFixedInReviewTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -332,7 +335,7 @@ namespace ReadOrbit.INFRASTRUCTURE.Migrations
             modelBuilder.Entity("ReadOrbit.DOMAIN.DomainEntities.ReaderGroup", b =>
                 {
                     b.HasOne("ReadOrbit.DOMAIN.DomainEntities.Book", "Book")
-                        .WithMany()
+                        .WithMany("Reviews")
                         .HasForeignKey("BookId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -351,7 +354,7 @@ namespace ReadOrbit.INFRASTRUCTURE.Migrations
             modelBuilder.Entity("ReadOrbit.DOMAIN.DomainEntities.Review", b =>
                 {
                     b.HasOne("ReadOrbit.DOMAIN.DomainEntities.Book", "Book")
-                        .WithMany("Reviews")
+                        .WithMany()
                         .HasForeignKey("BookId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();

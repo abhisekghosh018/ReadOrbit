@@ -12,7 +12,7 @@ namespace ReadOrbit.APPLICATION.Interfaces
         Task<int> CreateReviewAsync(Review review);
         Task<int> UpdateReviewAsync(Review review);
         Task<IEnumerable<Review>> GetAllReviewsAsync();
-        Task<Review?> GetReviewByIdAsync(string reviewId);
+        //Task<ReaderGroup?> GetReviewByIdAsync(string reviewId);
         Task<Review?> GetReviewByBookIdAsync(string bookId);
         Task<Review?> GetReviewByBookReaderIdAsync(string bookReaderId);
     }
