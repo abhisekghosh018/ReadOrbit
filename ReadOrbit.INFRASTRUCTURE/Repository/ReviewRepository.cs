@@ -34,23 +34,57 @@ namespace ReadOrbit.INFRASTRUCTURE.Repository
 
         }
 
-        public async Task<Review?> GetReviewByBookIdAsync(string bookId)
+        public async Task<IEnumerable<Review>> GetReviewByBookIdAsync(string bookId)
         {
             var review = await _context.Reviews
                 .AsNoTracking()
                 .Include(b => b.Book)
+                .Where(b => b.BookId == bookId)
                 .Include(b => b.Reader)
-                .FirstOrDefaultAsync(b=> b.BookId == bookId);
+                .ToListAsync();
             return review;
         }
+        //public async Task<IEnumerable<object>> GetReviewByBookIdAsync(string bookId)
+        //{
+        //    var reviews = await _context.Reviews
+        //        .AsNoTracking()
+        //        .Where(r => r.BookId == (bookId)) // filter by BookId
+        //        .Include(r => r.Book)   // join Books
+        //        .Include(r => r.Reader) // join BookReaders
+        //        .Select(r => new
+        //        {
+        //            r.Id,
+        //            r.BookReaderId,
+        //            r.Rating,
+        //            r.Comment,
+        //            r.CreatedAt,
+        //            Book = new
+        //            {
+        //                Book_Id = r.Book.Id,
+        //                Book_Title = r.Book.Title,
+        //                Book_GenreId = r.Book.GenreId,
+        //                Book_AuthorId = r.Book.AuthorId
+        //            },
+        //            Reader = new
+        //            {
+        //                Reader_Id = r.Reader.Id,
+        //                Reader_Name = r.Reader.UserName
+        //            }
+        //        })
+        //        .ToListAsync();
 
-        public async Task<Review?> GetReviewByBookReaderIdAsync(string bookReaderId)
+        //    return reviews;
+        //}
+
+
+        public async Task<IEnumerable<Review>> GetReviewByBookReaderIdAsync(string bookReaderId)
         {
             var review = await _context.Reviews
                 .AsNoTracking()
                 .Include(b => b.Book)
                 .Include(b => b.Reader)
-                .FirstOrDefaultAsync(b => b.BookReaderId == bookReaderId);
+                .Where(b => b.BookReaderId == bookReaderId)
+                .ToListAsync();
             return review;
         }
 

@@ -8,6 +8,8 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.  
 
+
+
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("PostgresConnection")));
 
@@ -19,18 +21,25 @@ builder.Services.AddScoped<IGroupRepository, GroupRepository>();
 builder.Services.AddScoped<IReaderProfileRepository, ReaderProfileRepository>();
 builder.Services.AddScoped<IBookReaderRepository, BookReaderRepository>();
 builder.Services.AddScoped<IReaderGroupRepository, ReaderGroupRepository>();
+builder.Services.AddScoped<IReviewRepository, ReviewRepository>();
 
 // serices
 builder.Services.AddScoped<AuthorService>();
 builder.Services.AddScoped<GenreService>();
 builder.Services.AddScoped<BookService>();
+    builder.Services.AddScoped<ReviewService>();
 builder.Services.AddScoped<GroupService>();
 builder.Services.AddScoped<ReaderProfileService>();
 builder.Services.AddScoped<ReaderService>();
 
-builder.Services.AddControllers();
 
+builder.Services.AddControllers();
 var app = builder.Build();
+
+if (app.Environment.IsDevelopment())
+{
+    
+}
 
 // Configure the HTTP request pipeline.  
 

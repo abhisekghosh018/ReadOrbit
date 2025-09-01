@@ -12,6 +12,9 @@ namespace ReadOrbit.DOMAIN.DomainEntities
         public int GenreId { get; set; }
         public Genre Genre { get; set; }
         public string? ImageUrl { get; set; }
+        public string? ISBN { get; set; }   
+        public string? Publisher { get; set; }
+        public string? Language { get; set; }
         public ICollection<BookReader> BookReaders { get; set; } = new List<BookReader>();
         public ICollection<Review> Reviews { get; set; } = new List<Review>();
     }
