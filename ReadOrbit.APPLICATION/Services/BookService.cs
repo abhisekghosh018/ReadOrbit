@@ -14,11 +14,11 @@ namespace ReadOrbit.APPLICATION.Services
         private readonly IBookRepository _bookRepository;
         public BookService(IBookRepository bookRepository)
         {
-            _bookRepository = bookRepository ?? throw new ArgumentNullException(nameof(bookRepository));
+            _bookRepository = bookRepository;
         }
-        public async Task<IEnumerable<GetBookDTO>> GetAllBooksAsync()
+        public async Task<IEnumerable<GetBookDTO>> GetAllBooksAsync(int pageNumber=0, int pageSize = 0)
         {
-            var books = await _bookRepository.GetBooksAsync();
+            var books = await _bookRepository.GetBooksAsync(pageNumber, pageSize);
 
             if (books == null || !books.Any())
             {

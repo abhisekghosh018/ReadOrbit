@@ -34,11 +34,14 @@ namespace ReadOrbit.INFRASTRUCTURE.Repository
 
             return book;
         }
-        public async Task<IEnumerable<Book>> GetBooksAsync()
+        public async Task<IEnumerable<Book>> GetBooksAsync(int pageNumber = 0 , int pageSize = 0)
         {
            var books = await _context.Books.AsNoTracking()
                 .Include(b => b.Author)
-                .Include(b => b.Genre).ToListAsync();
+                .Include(b => b.Genre)
+                .Skip((pageNumber - 1) * pageSize)
+                .Take(pageSize)
+                .ToListAsync();
 
             return books;
         }
