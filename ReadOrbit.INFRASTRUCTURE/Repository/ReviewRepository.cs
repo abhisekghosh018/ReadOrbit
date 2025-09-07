@@ -2,7 +2,6 @@
 using ReadOrbit.APPLICATION.Interfaces;
 using ReadOrbit.DOMAIN.DomainEntities;
 using ReadOrbit.INFRASTRUCTURE.DB;
-using System.Net;
 
 namespace ReadOrbit.INFRASTRUCTURE.Repository
 {
@@ -33,7 +32,11 @@ namespace ReadOrbit.INFRASTRUCTURE.Repository
             return reviews;
 
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="bookId"></param>
+        /// <returns> Reviews </returns>
         public async Task<IEnumerable<Review>> GetReviewByBookIdAsync(string bookId)
         {
             var review = await _context.Reviews
@@ -44,46 +47,18 @@ namespace ReadOrbit.INFRASTRUCTURE.Repository
                 .ToListAsync();
             return review;
         }
-        //public async Task<IEnumerable<object>> GetReviewByBookIdAsync(string bookId)
-        //{
-        //    var reviews = await _context.Reviews
-        //        .AsNoTracking()
-        //        .Where(r => r.BookId == (bookId)) // filter by BookId
-        //        .Include(r => r.Book)   // join Books
-        //        .Include(r => r.Reader) // join BookReaders
-        //        .Select(r => new
-        //        {
-        //            r.Id,
-        //            r.BookReaderId,
-        //            r.Rating,
-        //            r.Comment,
-        //            r.CreatedAt,
-        //            Book = new
-        //            {
-        //                Book_Id = r.Book.Id,
-        //                Book_Title = r.Book.Title,
-        //                Book_GenreId = r.Book.GenreId,
-        //                Book_AuthorId = r.Book.AuthorId
-        //            },
-        //            Reader = new
-        //            {
-        //                Reader_Id = r.Reader.Id,
-        //                Reader_Name = r.Reader.UserName
-        //            }
-        //        })
-        //        .ToListAsync();
-
-        //    return reviews;
-        //}
-
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="bookReaderId"></param>
+        /// <returns> Reviews </returns>
         public async Task<IEnumerable<Review>> GetReviewByBookReaderIdAsync(string bookReaderId)
         {
             var review = await _context.Reviews
                 .AsNoTracking()
-                .Include(b => b.Book)
                 .Include(b => b.Reader)
                 .Where(b => b.BookReaderId == bookReaderId)
+                .Include(b => b.Book)
                 .ToListAsync();
             return review;
         }
@@ -94,6 +69,5 @@ namespace ReadOrbit.INFRASTRUCTURE.Repository
             return await _context.SaveChangesAsync();
         }
 
-        
     }
 }

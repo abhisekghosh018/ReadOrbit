@@ -1,11 +1,6 @@
 ﻿using ReadOrbit.APPLICATION.DTOs.BookDTOs;
 using ReadOrbit.APPLICATION.Interfaces;
 using ReadOrbit.DOMAIN.DomainEntities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ReadOrbit.APPLICATION.Services
 {

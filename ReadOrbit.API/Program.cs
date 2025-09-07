@@ -27,18 +27,23 @@ builder.Services.AddScoped<IReviewRepository, ReviewRepository>();
 builder.Services.AddScoped<AuthorService>();
 builder.Services.AddScoped<GenreService>();
 builder.Services.AddScoped<BookService>();
-    builder.Services.AddScoped<ReviewService>();
+builder.Services.AddScoped<ReviewService>();
 builder.Services.AddScoped<GroupService>();
 builder.Services.AddScoped<ReaderProfileService>();
 builder.Services.AddScoped<ReaderService>();
 
 
 builder.Services.AddControllers();
+
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
+
 var app = builder.Build();
 
 if (app.Environment.IsDevelopment())
 {
-    
+    app.UseSwagger();
+    app.UseSwaggerUI();
 }
 
 // Configure the HTTP request pipeline.  

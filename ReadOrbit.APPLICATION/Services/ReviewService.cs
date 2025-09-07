@@ -50,7 +50,7 @@ namespace ReadOrbit.APPLICATION.Services
                 BookId = book.Id,
                 Title = book.Title,
                 Readers = reviews
-                    .GroupBy(r => r.Reader) // group reviews by reader
+                    .GroupBy(r => r.Reader) 
                     .Select(g => new ReaderReviewDTO
                     {
                         ReaderId = g.Key.Id,
@@ -61,6 +61,7 @@ namespace ReadOrbit.APPLICATION.Services
                             Rating = r.Rating,
                             Comment = r.Comment,
                             CreatedAt = r.CreatedAt
+
                         }).ToList()
                     })
                     .ToList()
