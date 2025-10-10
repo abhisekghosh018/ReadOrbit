@@ -11,7 +11,7 @@ namespace ReadOrbit.APPLICATION.Services
         {
             _bookRepository = bookRepository;
         }
-        public async Task<IEnumerable<GetBookDTO>> GetAllBooksAsync(int pageNumber=0, int pageSize = 0)
+        public async Task<IEnumerable<GetBookDTO>> GetAllBooksAsync(int pageNumber = 0, int pageSize = 0)
         {
             var books = await _bookRepository.GetBooksAsync(pageNumber, pageSize);
 
@@ -26,7 +26,8 @@ namespace ReadOrbit.APPLICATION.Services
                 Title = book.Title,
                 Author = book.Author.Name,
                 Genre = book.Genre.Name,
-                PublishedYear = book.PublishedYear
+                PublishedYear = book.PublishedYear,
+                ImageUrl = book.ImageUrl
             }).ToList();
         }
         public async Task<GetBookDTO> GetBookByIdAsync(string id)
@@ -45,6 +46,26 @@ namespace ReadOrbit.APPLICATION.Services
             };
 
         }
+        public async Task<List<GetBookDTO>> GetBooksByTitleOrAuthor(string? title, string? author)
+        {
+            var books = await _bookRepository.GetBooksByTitleOrAuthor(title, author);
+
+            if (books == null || !books.Any())
+                return new List<GetBookDTO>(); // return empty list, not null (best practice)
+
+            var result = books.Select(b => new GetBookDTO
+            {
+                Id = b.Id,
+                Title = b.Title,
+                Author = b.Author.Name,
+                Genre = b.Genre.Name,
+                PublishedYear = b.PublishedYear
+            }).ToList();
+
+            return result;
+        }
+
+
         public async Task<int> AddBookAsync(CreateBookDTO createBookDTO)
         {
 
@@ -83,10 +104,9 @@ namespace ReadOrbit.APPLICATION.Services
             if (updateBookDTO.GenreId.HasValue)
                 existingBook.GenreId = updateBookDTO.GenreId.Value;
 
-          var updatedbook=  await _bookRepository.UpdateBookAsync(existingBook);
+            var updatedbook = await _bookRepository.UpdateBookAsync(existingBook);
             return updatedbook;
         }
-
 
     }
 }

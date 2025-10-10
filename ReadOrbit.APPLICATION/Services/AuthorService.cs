@@ -26,6 +26,7 @@ namespace ReadOrbit.APPLICATION.Services
                 Name = author.Name,
                 Country = author.Country,
                 DOB = author.DOB,
+                ImageUrl = author.ImageUrl,
             }).ToList();
 
             return authorsDto;
@@ -36,9 +37,9 @@ namespace ReadOrbit.APPLICATION.Services
             var author = await _authorRepository.GetAuthorByIdAsync(id);
             if (author == null)
             {
-                return null ;
+                return null;
             }
-            
+
             var authorDto = new GetAuthorDtos
             {
                 Id = author.Id,
@@ -68,15 +69,15 @@ namespace ReadOrbit.APPLICATION.Services
                 {
                     Title = book.Title,
                     PublishedYear = book.PublishedYear,
-                    IsApproved =book.IsApproved,
+                    IsApproved = book.IsApproved,
                     Status = book.Status,
                     ImageUrl = book.ImageUrl,
                     Genre = new GetGenreDtoForAuthor
                     {
-                       Name = book.Genre.Name
+                        Name = book.Genre.Name
                     },
                     Reviews = book.Reviews.Select(Review => new BookReviewsForAuthor
-                        {
+                    {
                         Rating = Review.Rating.Value,
                         Comment = Review.Comment
                     }).ToList()
@@ -96,6 +97,7 @@ namespace ReadOrbit.APPLICATION.Services
             }
             var author = new Author
             {
+                Id = createAuthorDtos.Id,
                 Name = createAuthorDtos.Name,
                 Country = createAuthorDtos.Country,
                 DOB = createAuthorDtos.DOB,
@@ -114,9 +116,9 @@ namespace ReadOrbit.APPLICATION.Services
 
             var existingAuthor = await _authorRepository.GetAuthorByIdAsync(UpdateAuthorDtos.Id);
 
-            if(existingAuthor == null)
+            if (existingAuthor == null)
             {
-                return 0; 
+                return 0;
             }
 
             var author = new Author

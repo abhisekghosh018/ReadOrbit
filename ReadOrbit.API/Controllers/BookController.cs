@@ -15,7 +15,7 @@ namespace ReadOrbit.API.Controllers
             _bookService = bookService;
         }
         [HttpGet("getBooks")]
-        public async Task<IActionResult> GetBooks(int pageNumber=0, int pageSize =0)
+        public async Task<IActionResult> GetBooks(int pageNumber = 0, int pageSize = 0)
         {
             var books = await _bookService.GetAllBooksAsync(pageNumber, pageSize);
             if (books == null || !books.Any())
@@ -34,6 +34,21 @@ namespace ReadOrbit.API.Controllers
             }
             return Ok(books);
         }
+
+        [HttpGet("GetBookByTitleOrAuthor")]
+
+        public async Task<IActionResult> GetBookByTitleOrAuthor([FromQuery] string? title, [FromQuery] string? author)
+        {
+            var result = await _bookService.GetBooksByTitleOrAuthor(title, author);
+
+            if (result == null)
+                return NotFound("No books found.");
+
+            return Ok(result);
+        }
+
+
+
         [HttpPost("createBook")]
         public async Task<IActionResult> CreateBook([FromBody] CreateBookDTO createBookDTO)
         {

@@ -8,7 +8,6 @@ namespace ReadOrbit.API.Controllers
     [ApiController]
     public class AuthorController : ControllerBase
     {
-
         private readonly AuthorService _authorService;
 
         public AuthorController(AuthorService authorService)
@@ -17,13 +16,13 @@ namespace ReadOrbit.API.Controllers
         }
 
         [HttpGet("getAuthors")]
-        public async Task<IActionResult> GetAuthors() 
+        public async Task<IActionResult> GetAuthors()
         {
             var listAuthor = await _authorService.GetAuthorsAsync();
 
-            if (listAuthor.Count == 0) 
-            { 
-                return NoContent();
+            if (listAuthor.Count == 0)
+            {
+                throw new ArgumentException("No authors found");
             }
 
             return Ok(listAuthor);
@@ -36,7 +35,7 @@ namespace ReadOrbit.API.Controllers
 
             if (author == null)
             {
-                return NoContent();
+                throw new ArgumentException("Author not found");
             }
 
             return Ok(author);
@@ -45,10 +44,16 @@ namespace ReadOrbit.API.Controllers
         [HttpGet("getAuthorWithBooks/{id}")]
         public async Task<IActionResult> GetAuthorWithBooks(string id)
         {
-            var author = await _authorService.GetAuthorsWithBooksAsync(id);
-            if (author == null)
+            if (string.IsNullOrEmpty(id))
             {
-                return NoContent();
+                throw new ArgumentException("Invalid author ID");
+            }
+
+            var author = await _authorService.GetAuthorsWithBooksAsync(id);
+
+            if (author.Count <= 0)
+            {
+                throw new ArgumentException("Author not found");
             }
             return Ok(author);
         }
@@ -60,7 +65,7 @@ namespace ReadOrbit.API.Controllers
 
             if (author == 0)
             {
-                return NoContent();
+                throw new ArgumentException("Author not created");
             }
 
             return Ok(author);
@@ -73,7 +78,7 @@ namespace ReadOrbit.API.Controllers
 
             if (author == 0)
             {
-                return NoContent();
+                throw new ArgumentException("Author not updated");
             }
             return Ok(author);
         }

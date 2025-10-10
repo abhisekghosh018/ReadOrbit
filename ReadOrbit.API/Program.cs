@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using ReadOrbit.API.Middleware;
 using ReadOrbit.APPLICATION.Interfaces;
 using ReadOrbit.APPLICATION.Services;
 using ReadOrbit.INFRASTRUCTURE.DB;
@@ -38,7 +39,20 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("ReadOrbit", policy =>
+    {
+        policy.WithOrigins("http://localhost:4200");
+        policy.AllowAnyHeader();
+        policy.AllowAnyMethod();
+    });
+});
+
 var app = builder.Build();
+
+app.UseCors("ReadOrbit");
+app.UseMiddleware<ExceptionsMiddleware>();
 
 if (app.Environment.IsDevelopment())
 {

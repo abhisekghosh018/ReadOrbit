@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace ReadOrbit.APPLICATION.DTOs.AthorDTOs
+﻿namespace ReadOrbit.APPLICATION.DTOs.AthorDTOs
 {
     public class GetAuthorDtos
     {
@@ -12,5 +6,6 @@ namespace ReadOrbit.APPLICATION.DTOs.AthorDTOs
         public string Name { get; set; }
         public string? Country { get; set; }
         public DateOnly? DOB { get; set; }
+        public string? ImageUrl { get; set; }
     }
 }
