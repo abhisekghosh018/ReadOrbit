@@ -1,5 +1,6 @@
 ﻿using ReadOrbit.APPLICATION.DTOs.BookDTOs;
 using ReadOrbit.APPLICATION.Interfaces;
+using ReadOrbit.APPLICATION.Utility;
 using ReadOrbit.DOMAIN.DomainEntities;
 
 namespace ReadOrbit.APPLICATION.Services
@@ -11,27 +12,29 @@ namespace ReadOrbit.APPLICATION.Services
         {
             _bookRepository = bookRepository;
         }
-        public async Task<IEnumerable<GetBookDTO>> GetAllBooksAsync(int pageNumber = 0, int pageSize = 0)
+        public async Task<Result<IEnumerable<GetBookDTO>>> GetAllBooksAsync(int pageNumber = 0, int pageSize = 0)
         {
             int totalCount = await _bookRepository.TotalBookCount();
             var books = await _bookRepository.GetBooksAsync(pageNumber, pageSize);
 
             if (books == null || !books.Any())
             {
-                return null;
+                // return an empty list (or use Fail with a message if you prefer)
+                return Result<IEnumerable<GetBookDTO>>.Ok(new List<GetBookDTO>(), totalCount: totalCount);
             }
 
-            return books.Select(book => new GetBookDTO
+            var data = books.Select(book => new GetBookDTO
             {
                 Id = book.Id,
                 Title = book.Title,
                 Author = book.Author.Name,
                 Genre = book.Genre.Name,
                 PublishedYear = book.PublishedYear,
-                ImageUrl = book.ImageUrl,
-                // for pagination its requre to have total count 
-                TotalCount = totalCount,
+                ImageUrl = book.ImageUrl
+                // if you want TotalCount inside DTO, set it here: TotalCount = totalCount
             }).ToList();
+
+            return Result<IEnumerable<GetBookDTO>>.Ok(data, totalCount: totalCount);
         }
         public async Task<GetBookDTO> GetBookByIdAsync(string id)
         {

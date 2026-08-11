@@ -18,7 +18,7 @@ namespace ReadOrbit.API.Controllers
         public async Task<IActionResult> GetBooks(int pageNumber = 0, int pageSize = 0)
         {
             var books = await _bookService.GetAllBooksAsync(pageNumber, pageSize);
-            if (books == null || !books.Any())
+            if (books == null)
             {
                 return NotFound("No books found.");
             }

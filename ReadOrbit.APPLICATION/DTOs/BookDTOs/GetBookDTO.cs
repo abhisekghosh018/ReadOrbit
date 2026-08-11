@@ -12,6 +12,5 @@
         public bool? IsApproved { get; set; }
         public DateTime CreatedAt { get; set; }
         public DateTime UpdatedAt { get; set; }
-        public int TotalCount { get; set; }
     }
 }
