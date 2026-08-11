@@ -23,6 +23,8 @@ builder.Services.AddScoped<IReaderProfileRepository, ReaderProfileRepository>();
 builder.Services.AddScoped<IBookReaderRepository, BookReaderRepository>();
 builder.Services.AddScoped<IReaderGroupRepository, ReaderGroupRepository>();
 builder.Services.AddScoped<IReviewRepository, ReviewRepository>();
+builder.Services.AddScoped<IArticleRepository, ArticleRepository>();
+
 
 // serices
 builder.Services.AddScoped<AuthorService>();
@@ -32,6 +34,7 @@ builder.Services.AddScoped<ReviewService>();
 builder.Services.AddScoped<GroupService>();
 builder.Services.AddScoped<ReaderProfileService>();
 builder.Services.AddScoped<ReaderService>();
+builder.Services.AddScoped<ArticleService>();
 
 
 builder.Services.AddControllers();

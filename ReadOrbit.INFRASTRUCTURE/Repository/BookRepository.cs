@@ -63,5 +63,10 @@ namespace ReadOrbit.INFRASTRUCTURE.Repository
             }
             return await query.ToListAsync();
         }
+
+        public async Task<int> TotalBookCount()
+        {
+            return _context.Books.AsNoTracking().Count();
+        }
     }
 }

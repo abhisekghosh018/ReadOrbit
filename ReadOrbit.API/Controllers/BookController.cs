@@ -47,8 +47,6 @@ namespace ReadOrbit.API.Controllers
             return Ok(result);
         }
 
-
-
         [HttpPost("createBook")]
         public async Task<IActionResult> CreateBook([FromBody] CreateBookDTO createBookDTO)
         {

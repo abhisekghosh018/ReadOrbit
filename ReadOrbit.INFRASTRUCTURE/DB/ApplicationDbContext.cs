@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using ReadOrbit.DOMAIN.DomainEntities;
+using System.Text.Json;
 
 namespace ReadOrbit.INFRASTRUCTURE.DB
 {
@@ -15,6 +16,25 @@ namespace ReadOrbit.INFRASTRUCTURE.DB
         public DbSet<ReaderGroup> ReaderGroups { get; set; }
         public DbSet<ReaderProfile> ReaderProfiles { get; set; }
         public DbSet<Review> Reviews { get; set; }
-               
+        public DbSet<Article> Articles { get; set; }
+
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Article>()
+                .Property(a => a.Id)
+                .HasDefaultValueSql("gen_random_uuid()");
+
+            modelBuilder.Entity<Article>()
+                .Property(a => a.ArticleText)
+                .HasColumnType("jsonb")
+                .HasConversion(
+                v => JsonSerializer.Serialize(v, (JsonSerializerOptions)null),
+                v => JsonSerializer.Deserialize<object>(v, (JsonSerializerOptions)null)
+                );
+
+            base.OnModelCreating(modelBuilder);
+        }
+
     }
 }

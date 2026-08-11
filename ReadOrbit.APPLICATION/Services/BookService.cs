@@ -13,6 +13,7 @@ namespace ReadOrbit.APPLICATION.Services
         }
         public async Task<IEnumerable<GetBookDTO>> GetAllBooksAsync(int pageNumber = 0, int pageSize = 0)
         {
+            int totalCount = await _bookRepository.TotalBookCount();
             var books = await _bookRepository.GetBooksAsync(pageNumber, pageSize);
 
             if (books == null || !books.Any())
@@ -27,7 +28,9 @@ namespace ReadOrbit.APPLICATION.Services
                 Author = book.Author.Name,
                 Genre = book.Genre.Name,
                 PublishedYear = book.PublishedYear,
-                ImageUrl = book.ImageUrl
+                ImageUrl = book.ImageUrl,
+                // for pagination its requre to have total count 
+                TotalCount = totalCount,
             }).ToList();
         }
         public async Task<GetBookDTO> GetBookByIdAsync(string id)
@@ -59,7 +62,8 @@ namespace ReadOrbit.APPLICATION.Services
                 Title = b.Title,
                 Author = b.Author.Name,
                 Genre = b.Genre.Name,
-                PublishedYear = b.PublishedYear
+                PublishedYear = b.PublishedYear,
+                ImageUrl = b.ImageUrl
             }).ToList();
 
             return result;
