@@ -1,9 +1,12 @@
 using Microsoft.EntityFrameworkCore;
 using ReadOrbit.API.Middleware;
 using ReadOrbit.APPLICATION.Interfaces;
+using ReadOrbit.APPLICATION.RedisCache;
 using ReadOrbit.APPLICATION.Services;
+using ReadOrbit.INFRASTRUCTURE.Caching;
 using ReadOrbit.INFRASTRUCTURE.DB;
 using ReadOrbit.INFRASTRUCTURE.Repository;
+using StackExchange.Redis;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -12,7 +15,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
-    options.UseNpgsql(builder.Configuration.GetConnectionString("PostgresConnection")));
+    options.UseNpgsql(builder.Configuration.GetConnectionString("PostgresConnection"), options => options.CommandTimeout(300)));
 
 // repositories
 builder.Services.AddScoped<IBookRepository, BookRepository>();
@@ -25,6 +28,23 @@ builder.Services.AddScoped<IReaderGroupRepository, ReaderGroupRepository>();
 builder.Services.AddScoped<IReviewRepository, ReviewRepository>();
 builder.Services.AddScoped<IArticleRepository, ArticleRepository>();
 
+//test
+builder.Services.AddScoped<ITest, Test>();
+//Redis Cache
+var redisConnection = builder.Configuration.GetConnectionString("Redis");
+
+if (string.IsNullOrWhiteSpace(redisConnection))
+{
+    throw new InvalidOperationException(
+        "RedisConnection is not configured.");
+}
+
+builder.Services.AddSingleton<IConnectionMultiplexer>(
+    ConnectionMultiplexer.Connect(redisConnection));
+
+builder.Services.AddScoped<ICacheService, RedisCacheService>();
+
+
 
 // serices
 builder.Services.AddScoped<AuthorService>();
@@ -35,6 +55,7 @@ builder.Services.AddScoped<GroupService>();
 builder.Services.AddScoped<ReaderProfileService>();
 builder.Services.AddScoped<ReaderService>();
 builder.Services.AddScoped<ArticleService>();
+builder.Services.AddScoped<TestService>();
 
 
 builder.Services.AddControllers();
